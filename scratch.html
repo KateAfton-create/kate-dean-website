@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+
+    <!-- Link to custom stylesheet -->
+    <link rel="stylesheet" href="scratch.css" />
+</head>
+<body id="top">
+
+    <!-- HEADER DIV -->
+    <div class="header">
+        <h1>Kate's Fitness Journey</h1>
+        <p>A from-scratch HTML & CSS page</p>
+        <p>
+            <a href="index.html" style="color: #ffeb3b; font-weight: bold;">
+                ← Back to Professional Site
+            </a>
+        </p>
+    </div>
+
+    <!-- MAIN CONTENT DIV -->
+    <div class="content">
+
+        <!-- SECTION 1: Nested Lists -->
+        <div class="section-card">
+            <h2>How I Stay Active</h2>
+            <p>This section demonstrates a nested list (ordered + unordered).</p>
+
+            <ol>
+                <li>
+                    Weekly workout routine
+                    <ul>
+                        <li>Strength training (2–3 days)</li>
+                        <li>Cardio workouts (2 days)</li>
+                        <li>Mobility and stretching</li>
+                    </ul>
+                </li>
+                <li>
+                    Healthy habits
+                    <ul>
+                        <li>Daily walks</li>
+                        <li>Hydration</li>
+                        <li>Consistent sleep schedule</li>
+                    </ul>
+                </li>
+                <li>
+                    Tracking progress
+                    <ul>
+                        <li>Fitness apps</li>
+                        <li>Workout journals</li>
+                        <li>Setting realistic goals</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- SECTION 2: Image -->
+        <div class="section-card">
+            <h2>Why Fitness Matters</h2>
+            <p>Staying active helps both physical and mental health.</p>
+
+            <img
+                src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg"
+                alt="Fitness shoes"
+                style="max-width: 100%; border-radius: 6px;"
+            />
+        </div>
+
+        <!-- SECTION 3: YouTube Video -->
+        <div class="section-card" id="video-section">
+            <h2>Favorite Workout Video</h2>
+            <p>Here is an embedded YouTube workout video.</p>
+
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <<iframe
+    src="https://www.youtube.com/embed/v7AYKMP6rOE
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+</iframe>
+
+            </div>
+        </div>
+
+        <!-- SECTION 4: Tableau -->
+        <div class="section-card">
+            <h2>Fitness Data Visualization</h2>
+            <p>This section will contain a live Tableau visualization.</p>
+
+   <div class='tableauPlaceholder' id='viz1' style='position: relative'>
+  <noscript>
+    <a href='#'>
+      <img alt='Dashboard 1'
+           src='https://public.tableau.com/static/images/Fi/FitnessDashboard_15984447074070/Dashboard1/1_rss.png'
+           style='border: none' />
+    </a>
+  </noscript>
+
+  <object class='tableauViz' style='display:none;'>
+    <param name='host_url' value='https://public.tableau.com/' />
+    <param name='embed_code_version' value='3' />
+    <param name='name' value='FitnessDashboard_15984447074070/Dashboard1' />
+    <param name='tabs' value='no' />
+    <param name='toolbar' value='yes' />
+  </object>
+</div>
+
+<script type='text/javascript'>
+  var divElement = document.getElementById('viz1');
+  var vizElement = divElement.getElementsByTagName('object')[0];
+  vizElement.style.width='100%';
+  vizElement.style.height='600px';
+  var scriptElement = document.createElement('script');
+  scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+  vizElement.parentNode.insertBefore(scriptElement, vizElement);
+</script>
+
+
+        
