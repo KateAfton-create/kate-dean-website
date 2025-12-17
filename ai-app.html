@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercise of the Day Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f6f8;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      margin:0;
+      padding:18px;
+    }
+    .card{
+      background:#fff;
+      width:420px;
+      max-width:95vw;
+      border-radius:12px;
+      padding:24px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.12);
+    }
+    h1{ margin:0 0 6px; }
+    p{ margin:0 0 16px; color:#444; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:12px 0 16px;
+    }
+    select, button{
+      font-size:16px;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #d9d9d9;
+    }
+    select{ flex:1; min-width:190px; }
+    button{
+      background:#0d6efd;
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      flex:1;
+      min-width:160px;
+    }
+    button:hover{ background:#0b5ed7; }
+
+    .result{
+      border:1px solid #e6e6e6;
+      border-radius:10px;
+      padding:16px;
+      background:#fafafa;
+    }
+    .title{
+      font-weight:700;
+      font-size:18px;
+      margin-bottom:8px;
+    }
+    .pillbar{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:10px 0 0;
+    }
+    .pill{
+      background:#e9f2ff;
+      color:#0b5ed7;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+    }
+    .small{
+      font-size:13px;
+      color:#666;
+      margin-top:10px;
+    }
+    .linkrow{
+      margin-top:14px;
+      font-size:14px;
+    }
+    a{ color:#0b5ed7; }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Exercise of the Day</h1>
+    <p>Pick a goal, generate a workout, and try a “daily challenge.”</p>
+
+    <div class="row">
+      <select id="goal">
+        <option value="Strength">Strength</option>
+        <option value="Cardio">Cardio</option>
+        <option value="Mobility">Mobility</option>
+        <option value="Core">Core</option>
+      </select>
+      <button id="genBtn">Generate</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="title">Click “Generate” to get today’s workout.</div>
+      <div id="details"></div>
+      <div class="pillbar" id="pills"></div>
+      <div class="small" id="note"></div>
+    </div>
+
+    <div class="linkrow">
+      Tip: Put a link to this page from <strong>scratch.html</strong> (we’ll do that next).
+    </div>
+  </div>
+
+  <script>
+    // AI-generated idea + student customization: themed fitness generator + difficulty + timer
+    const workouts = {
+      Strength: [
+        { name: "Dumbbell Goblet Squats", sets: "4 sets", reps: "10 reps", rest: "60 sec", tip:"Keep chest tall; sit between your hips." },
+        { name: "Push-Ups", sets: "3 sets", reps: "AMRAP (as many reps as possible)", rest: "60 sec", tip:"Straight line from head to heels." },
+        { name: "Romanian Deadlifts", sets: "4 sets", reps: "8–10 reps", rest: "75 sec", tip:"Hinge at hips; feel stretch in hamstrings." }
+      ],
+      Cardio: [
+        { name: "Interval Power Walk", sets: "1 session", reps: "20 minutes", rest: "30 sec easy / 30 sec fast", tip:"Fast = brisk enough to talk but not sing." },
+        { name: "Jump Rope", sets: "5 rounds", reps: "1 min on", rest: "30 sec", tip:"Soft knees; wrists do the work." },
+        { name: "Bike Sprints", sets: "8 rounds", reps: "15 sec hard", rest: "45 sec easy", tip:"Hard = 8/10 effort." }
+      ],
+      Mobility: [
+        { name: "Hip Flexor Stretch", sets: "2 rounds", reps: "45 sec/side", rest: "15 sec", tip:"Tuck pelvis slightly; don’t arch back." },
+        { name: "Thoracic Open Books", sets: "2 rounds", reps: "10/side", rest: "15 sec", tip:"Rotate from upper back; breathe out as you open." },
+        { name: "Ankle Dorsiflexion Rocks", sets: "3 rounds", reps: "12/side", rest: "15 sec", tip:"Keep heel down; knee tracks over toes." }
+      ],
+      Core: [
+        { name: "Plank", sets: "3 sets", reps: "30–45 sec", rest: "45 sec", tip:"Brace like someone might poke your stomach." },
+        { name: "Dead Bug", sets: "3 sets", reps: "10/side", rest: "30 sec", tip:"Low back stays gently pressed down." },
+        { name: "Side Plank", sets: "2 sets", reps: "30 sec/side", rest: "30 sec", tip:"Hips stacked; don’t sag." }
+      ]
+    };
+
+    const difficulties = [
+      { name: "Beginner", modifier: "Keep it smooth and controlled.", bonus: "Add 5 minutes of walking." },
+      { name: "Intermediate", modifier: "Push the pace a bit.", bonus: "Add 1 extra set." },
+      { name: "Advanced", modifier: "Go hard with great form.", bonus: "Reduce rest by 15 seconds." }
+    ];
+
+    function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function generate() {
+      const goal = document.getElementById("goal").value;
+      const w = pickRandom(workouts[goal]);
+      const d = pickRandom(difficulties);
+
+      document.querySelector("#result .title").textContent = `${goal} Focus: ${w.name}`;
+      document.getElementById("details").innerHTML = `
+        <div><strong>Plan:</strong> ${w.sets} • ${w.reps}</div>
+        <div><strong>Rest:</strong> ${w.rest}</div>
+        <div style="margin-top:8px;"><strong>Coach Tip:</strong> ${w.tip}</div>
+      `;
+
+      const pills = document.getElementById("pills");
+      pills.innerHTML = "";
+      ["Difficulty: " + d.name, "Daily Bonus: " + d.bonus].forEach(text=>{
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.textContent = text;
+        pills.appendChild(span);
+      });
+
+      document.getElementById("note").textContent = d.modifier;
+    }
+
+    document.getElementById("genBtn").addEventListener("click", generate);
+  </script>
+</body>
+</html>
